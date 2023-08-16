@@ -2,9 +2,11 @@ namespace Conversor_de_Medidas
 {
     public partial class Form1 : Form
     {
+        private ServicioConversion _servicio;
         public Form1()
         {
             InitializeComponent();
+            _servicio = new ServicioConversion();
 
             cmbTipo.DataSource = Enum.GetValues(typeof(tipoEnumerador));
             cmbTipo.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -16,7 +18,7 @@ namespace Conversor_de_Medidas
         private void cmbTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
             // otra opcion --> var indiceSeleccionado = cmbTipo.SelectedIndex;
-            var seleccionado = (tipoEnumerador) cmbTipo.SelectedItem;
+            var seleccionado = (tipoEnumerador)cmbTipo.SelectedItem;
 
             if (seleccionado == tipoEnumerador.tiempo)
             {
@@ -34,7 +36,57 @@ namespace Conversor_de_Medidas
                 lstA.DataSource = Enum.GetValues(typeof(temperaturaEnumerador));
             }
 
-            
+
+        }
+
+        private void btnConvertir_Click(object sender, EventArgs e)
+        {
+            var cantidadSeleccionada = txtIngreso.Text;
+            var seleccionado = (tipoEnumerador)cmbTipo.SelectedItem;
+            var desde = (tiempoEnumerador)lstDesde.SelectedItem;
+            var a = (tiempoEnumerador)lstA.SelectedItem;
+
+            //validaciones
+            if (!double.TryParse(cantidadSeleccionada, out double cantidad))
+            {
+                MessageBox.Show("Ingrese un valor numerico");
+                return;
+            }
+
+
+            if (cantidadSeleccionada.Length == 0)
+            {
+                return;
+
+            }
+
+            if (lstDesde.SelectedItem.Equals(lstA.SelectedItem))
+            {
+                lblConversion.Text = txtIngreso.Text.ToString();
+                return;
+            }
+
+
+            //conversiones
+            if (seleccionado == tipoEnumerador.tiempo)
+            {
+                var resultado = _servicio.ConvertirTiempo(Convert.ToDouble(cantidadSeleccionada), desde, a);
+                lblConversion.Text = resultado.ToString() + " " + lstA.SelectedItem;
+            }
+            else if (seleccionado == tipoEnumerador.masa)
+            {
+                var resultado = _servicio.ConvertirMasa(Convert.ToDouble(cantidadSeleccionada), (masaEnumerador)lstDesde.SelectedItem, (masaEnumerador)lstA.SelectedItem);
+                lblConversion.Text = resultado.ToString() + " " + lstA.SelectedItem;
+            }
+            else if (seleccionado == tipoEnumerador.temperatura)
+            {
+                var resultado = _servicio.ConvertirTemperatura(Convert.ToDouble(cantidadSeleccionada), (temperaturaEnumerador)lstDesde.SelectedItem, (temperaturaEnumerador)lstA.SelectedItem);
+                lblConversion.Text = resultado.ToString() + " " + lstA.SelectedItem;
+            }
+
+            txtIngreso.Text = String.Empty;
+
+
         }
     }
 }

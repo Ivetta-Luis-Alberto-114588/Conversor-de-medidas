@@ -42,6 +42,7 @@
             label4 = new Label();
             lblConversion = new Label();
             panel4 = new Panel();
+            btnConvertir = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -111,7 +112,7 @@
             panel3.Controls.Add(lstA);
             panel3.Controls.Add(lstDesde);
             panel3.Controls.Add(label2);
-            panel3.Location = new Point(101, 215);
+            panel3.Location = new Point(101, 200);
             panel3.Name = "panel3";
             panel3.Size = new Size(573, 148);
             panel3.TabIndex = 2;
@@ -158,7 +159,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(129, 396);
+            label4.Location = new Point(61, 9);
             label4.Name = "label4";
             label4.Size = new Size(113, 25);
             label4.TabIndex = 5;
@@ -170,25 +171,37 @@
             lblConversion.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             lblConversion.Location = new Point(373, 9);
             lblConversion.Name = "lblConversion";
-            lblConversion.Size = new Size(113, 25);
+            lblConversion.Size = new Size(44, 25);
             lblConversion.TabIndex = 6;
-            lblConversion.Text = "Conversion";
+            lblConversion.Text = "----";
             // 
             // panel4
             // 
             panel4.BorderStyle = BorderStyle.FixedSingle;
             panel4.Controls.Add(lblConversion);
-            panel4.Location = new Point(102, 386);
+            panel4.Controls.Add(label4);
+            panel4.Location = new Point(102, 396);
             panel4.Name = "panel4";
-            panel4.Size = new Size(572, 52);
+            panel4.Size = new Size(572, 42);
             panel4.TabIndex = 7;
+            // 
+            // btnConvertir
+            // 
+            btnConvertir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnConvertir.Location = new Point(352, 357);
+            btnConvertir.Name = "btnConvertir";
+            btnConvertir.Size = new Size(90, 30);
+            btnConvertir.TabIndex = 7;
+            btnConvertir.Text = "Convertir";
+            btnConvertir.UseVisualStyleBackColor = true;
+            btnConvertir.Click += btnConvertir_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(770, 450);
-            Controls.Add(label4);
+            Controls.Add(btnConvertir);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -204,7 +217,6 @@
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -223,5 +235,6 @@
         private ListBox lstA;
         private ListBox lstDesde;
         private Panel panel4;
+        private Button btnConvertir;
     }
 }
